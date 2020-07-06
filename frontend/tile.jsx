@@ -18,12 +18,12 @@ export default class Tile extends React.Component {
         let klass = "";
         const tile = this.props.tile;
             if (tile.flagged) {
-                text = "F";
+                text = "\u2691";
                 klass = " flagged";
             } else {
                 if (tile.explored) {
                     if (tile.bombed) {
-                        text = "B";
+                        text = "\u2620";
                         klass = " bombed";
                     } else {
                         const count = tile.adjacentBombCount();

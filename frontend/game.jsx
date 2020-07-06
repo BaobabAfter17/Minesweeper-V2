@@ -27,12 +27,12 @@ export default class Game extends React.Component {
     }
 
     restartGame(e) {
-        const newBoard = new Minesweeper.Board(10, 1);
+        const newBoard = new Minesweeper.Board(10, 10);
         document.getElementById("modal").setAttribute("class", "modal");
         this.setState({ board: newBoard });
     }
 
-    render() {
+    modal() {
         let info = "";
         let klass = "modal";
         if (this.state.board.won()) {
@@ -43,19 +43,21 @@ export default class Game extends React.Component {
             info = "You lose!";
             klass += " is-active";
         }
-        const modal = (
-          <div id="modal" className={klass}>
+        return (
+            <div id="modal" className={klass}>
             <div className="modal-content">
-              <span>{info}</span>
-              <button onClick={this.restartGame}>Play again!</button>
+                <span>{info}</span>
+                <button onClick={this.restartGame}>Play again!</button>
             </div>
             <div className="modal-screen"></div>
-          </div>
+            </div>
         );
+    }
 
+    render() {
         return (
-          <div>
-            {modal}
+          <div className="game">
+            {this.modal()}
             <Board board={this.state.board} updateGame={this.updateGame} />
           </div>
         );
