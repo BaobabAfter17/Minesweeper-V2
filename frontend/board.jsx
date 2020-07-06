@@ -4,7 +4,6 @@ import Tile from "./tile";
 export default class Board extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.board);
     }
 
     render() {
