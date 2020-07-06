@@ -11,6 +11,7 @@ export default class Game extends React.Component {
         }
 
         this.updateGame = this.updateGame.bind(this);
+        this.restartGame = this.restartGame.bind(this);
     }
 
     updateGame(tile, revealing) {
@@ -19,25 +20,44 @@ export default class Game extends React.Component {
         } else {
             tile.toggleFlag();
         }
-        
+
         this.setState({
             board: this.state.board
         });
+    }
 
-        if (this.state.board.won()) {
-          alert("Yeah, you win!");
-        }
-        if (this.state.board.lost()) {
-          alert("Uhuh, you lose...");
-        }
+    restartGame(e) {
+        const newBoard = new Minesweeper.Board(10, 1);
+        document.getElementById("modal").setAttribute("class", "modal");
+        this.setState({ board: newBoard });
     }
 
     render() {
+        let info = "";
+        let klass = "modal";
+        if (this.state.board.won()) {
+            info = "You win!";
+            klass += " is-active";
+        }
+        if (this.state.board.lost()) {
+            info = "You lose!";
+            klass += " is-active";
+        }
+        const modal = (
+          <div id="modal" className={klass}>
+            <div className="modal-content">
+              <span>{info}</span>
+              <button onClick={this.restartGame}>Play again!</button>
+            </div>
+            <div className="modal-screen"></div>
+          </div>
+        );
+
         return (
-            <Board
-                board={this.state.board}
-                updateGame={this.updateGame}
-            />
-        )
+          <div>
+            {modal}
+            <Board board={this.state.board} updateGame={this.updateGame} />
+          </div>
+        );
     }
 }
