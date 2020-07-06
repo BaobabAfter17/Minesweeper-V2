@@ -50,6 +50,7 @@ export class Tile {
   toggleFlag() {
     if (!this.explored) {
       this.flagged = !this.flagged;
+      console.log(this);
       return true;
     }
 

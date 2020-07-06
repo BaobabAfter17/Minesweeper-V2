@@ -9,29 +9,31 @@ export default class Tile extends React.Component {
 
     handleClick(e) {
         const revealing = e.altKey ? false : true;
-        this.props.updateGame(this, revealing);
+        const tile = this.props.tile;
+        this.props.updateGame(tile, revealing);
     }
 
     render() {
         let text = "";
         let klass = "";
-        if (this.props.tile.explored) {
-            if (this.props.tile.flagged) {
+        const tile = this.props.tile;
+            if (tile.flagged) {
                 text = "F";
                 klass = " flagged";
             } else {
-                if (this.props.bombed) {
-                    text = "B";
-                    klass = " bombed";
+                if (tile.explored) {
+                    if (tile.bombed) {
+                        text = "B";
+                        klass = " bombed";
+                    } else {
+                        const count = tile.adjacentBombCount();
+                        text = count === 0 ? "" : count;
+                        klass = " revealed";
+                    }
                 } else {
-                    const count = this.props.tile.adjacentBombCount();
-                    text = count === 0 ? "" : count;
-                    klass = " revealed";
+                    text = "";
                 }
             }
-        } else {
-            text = "";
-        }
 
         return (
             <div

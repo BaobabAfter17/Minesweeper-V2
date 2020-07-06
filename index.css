@@ -7,3 +7,7 @@
     height: 20px;
     border-style: outset;
 }
+
+.revealed {
+    border-style: inset;
+}
