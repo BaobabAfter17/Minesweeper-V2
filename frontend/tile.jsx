@@ -17,23 +17,23 @@ export default class Tile extends React.Component {
         let text = "";
         let klass = "";
         const tile = this.props.tile;
-            if (tile.flagged) {
-                text = "\u2691";
-                klass = " flagged";
-            } else {
-                if (tile.explored) {
-                    if (tile.bombed) {
-                        text = "\u2620";
-                        klass = " bombed";
-                    } else {
-                        const count = tile.adjacentBombCount();
-                        text = count === 0 ? "" : count;
-                        klass = " revealed";
-                    }
+        if (tile.flagged) {
+            text = "\u2691";
+            klass = " flagged";
+        } else {
+            if (tile.explored) {
+                if (tile.bombed) {
+                    text = "\u2620";
+                    klass = " bombed";
                 } else {
-                    text = "";
+                    const count = tile.adjacentBombCount();
+                    text = count === 0 ? "" : count;
+                    klass = " revealed";
                 }
+            } else {
+                text = "";
             }
+        }
 
         return (
             <div
